@@ -1,0 +1,138 @@
+﻿<UserControl x:Class="Firma.Views.NewProductView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:vm="clr-namespace:Firma.ViewModels"
+             xmlns:local="clr-namespace:Firma.Views"
+             xmlns:resx="clr-namespace:Firma.ViewResources"
+             mc:Ignorable="d"
+             d:DesignHeight="450" d:DesignWidth="800">
+    <!-- Attach styles -->
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="NewProductViewResources.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid Style="{StaticResource BackgroundStyle}">
+        <!-- Definiowanie kolumn i wierszy -->
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <!-- Nagłówek -->
+            <RowDefinition Height="*"/>
+            <!-- Formularz -->
+            <RowDefinition Height="Auto"/>
+            <!-- Przyciski -->
+        </Grid.RowDefinitions>
+
+        <!-- Nagłówek -->
+        <TextBlock Grid.Row="0" Text="{x:Static resx:GlobalResources.NewProductHeader}"
+                   HorizontalAlignment="Center" FontSize="24" Margin="20" Style="{StaticResource TextBlockStyle}"/>
+
+        <!-- Formularz -->
+        <ScrollViewer Grid.Row="1">
+            <StackPanel Margin="20">
+                <!-- Nazwa produktu -->
+                <Label Content="{x:Static resx:GlobalResources.ProductName}" Style="{StaticResource LabelStyle}"/>
+                <TextBox x:Name="productName" Style="{StaticResource TextBoxStyle}"/>
+
+                <!-- Opis produktu -->
+                <Label Content="{x:Static resx:GlobalResources.ProductDescription}" Style="{StaticResource LabelStyle}"/>
+                <TextBox x:Name="productDescription" AcceptsReturn="True" Style="{StaticResource TextBoxStyle}"/>
+
+                <!-- Cena produktu -->
+                <Label Content="{x:Static resx:GlobalResources.ProductPrice}" Style="{StaticResource LabelStyle}"/>
+                <TextBox x:Name="productPrice" Style="{StaticResource TextBoxStyle}"/>
+
+                <!-- Promocja -->
+                <Label Content="{x:Static resx:GlobalResources.ProductPromotion}" Style="{StaticResource LabelStyle}"/>
+                <CheckBox x:Name="productPromotion" Style="{StaticResource CheckBoxStyle}"/>
+
+                <!-- Procent promocji -->
+                <Label Content="{x:Static resx:GlobalResources.PromotionPercentage}" Style="{StaticResource LabelStyle}"/>
+                <Slider x:Name="promotionPercentage" Minimum="0" Maximum="100" Style="{StaticResource SliderStyle}"/>
+
+                <!-- Ocena produktu -->
+                <Label Content="{x:Static resx:GlobalResources.ProductRating}" Style="{StaticResource LabelStyle}"/>
+                <Slider x:Name="productRating" Minimum="0" Maximum="5" Style="{StaticResource SliderStyle}"/>
+
+                <!-- Ocena bezpieczeństwa -->
+                <Label Content="{x:Static resx:GlobalResources.SafetyRating}" Style="{StaticResource LabelStyle}"/>
+                <Slider x:Name="safetyRating" Minimum="0" Maximum="5" Style="{StaticResource SliderStyle}"/>
+
+                <!-- Kategoria produktu -->
+                <Label Content="{x:Static resx:GlobalResources.ProductCategory}" Style="{StaticResource LabelStyle}"/>
+                <ComboBox x:Name="productCategory" Style="{StaticResource ComboBoxStyle}"/>
+
+                <!-- Marka produktu -->
+                <Label Content="{x:Static resx:GlobalResources.ProductBrand}" Style="{StaticResource LabelStyle}"/>
+                <TextBox x:Name="productBrand" Style="{StaticResource TextBoxStyle}"/>
+
+                <!-- Dostępność produktu -->
+                <Label Content="{x:Static resx:GlobalResources.ProductAvailability}" Style="{StaticResource LabelStyle}"/>
+                <TextBox x:Name="productAvailability" Style="{StaticResource TextBoxStyle}"/>
+
+                <!-- Data dodania produktu -->
+                <Label Content="{x:Static resx:GlobalResources.ProductAddDate}" Style="{StaticResource LabelStyle}"/>
+                <DatePicker x:Name="productAddDate" Style="{StaticResource DatePickerStyle}"/>
+
+                <!-- Zdjęcie produktu -->
+                <Label Content="{x:Static resx:GlobalResources.ProductImage}" Style="{StaticResource LabelStyle}"/>
+                <Button Content="{x:Static resx:GlobalResources.AddImageButtonText}" Style="{StaticResource ButtonStyle}"/>
+                <Image x:Name="productImage" Height="100"/>
+
+                <!-- Numery SKU i EAN -->
+                <Label Content="{x:Static resx:GlobalResources.ProductSKU}" Style="{StaticResource LabelStyle}"/>
+                <TextBox x:Name="productSKU" Style="{StaticResource TextBoxStyle}"/>
+
+                <Label Content="{x:Static resx:GlobalResources.ProductEAN}" Style="{StaticResource LabelStyle}"/>
+                <TextBox x:Name="productEAN" Style="{StaticResource TextBoxStyle}"/>
+
+                <!-- Wymiary produktu -->
+                <Label Content="{x:Static resx:GlobalResources.ProductDimensions}" Style="{StaticResource LabelStyle}"/>
+                <TextBox x:Name="productDimensions" Style="{StaticResource TextBoxStyle}"/>
+
+                <!-- Wielkość produktu -->
+                <Label Content="{x:Static resx:GlobalResources.ProductSize}" Style="{StaticResource LabelStyle}"/>
+                <TextBox x:Name="productSize" Style="{StaticResource TextBoxStyle}"/>
+
+                <!-- Waga produktu -->
+                <Label Content="{x:Static resx:GlobalResources.ProductWeight}" Style="{StaticResource LabelStyle}"/>
+                <TextBox x:Name="productWeight" Style="{StaticResource TextBoxStyle}"/>
+
+                <!-- Kraj produkcji -->
+                <Label Content="{x:Static resx:GlobalResources.ProductCountryOfOrigin}" Style="{StaticResource LabelStyle}"/>
+                <TextBox x:Name="productCountryOfOrigin" Style="{StaticResource TextBoxStyle}"/>
+
+                <!-- Warunki przechowywania -->
+                <Label Content="{x:Static resx:GlobalResources.ProductStorageConditions}" Style="{StaticResource LabelStyle}"/>
+                <TextBox x:Name="productStorageConditions" Style="{StaticResource TextBoxStyle}"/>
+
+                <!-- Data wygaśnięcia -->
+                <Label Content="{x:Static resx:GlobalResources.ProductExpiryDate}" Style="{StaticResource LabelStyle}"/>
+                <DatePicker x:Name="productExpiryDate" Style="{StaticResource DatePickerStyle}"/>
+
+                <!-- Informacje o dostawie -->
+                <Label Content="{x:Static resx:GlobalResources.DeliveryInfo}" Style="{StaticResource LabelStyle}"/>
+                <TextBox x:Name="deliveryInfo" AcceptsReturn="True" Style="{StaticResource TextBoxStyle}"/>
+
+                <!-- Informacje o producencie -->
+                <Label Content="{x:Static resx:GlobalResources.ManufacturerInfo}" Style="{StaticResource LabelStyle}"/>
+                <TextBox x:Name="manufacturerInfo" AcceptsReturn="True" Style="{StaticResource TextBoxStyle}"/>
+
+                <!-- Dodatkowe uwagi -->
+                <Label Content="{x:Static resx:GlobalResources.AdditionalNotes}" Style="{StaticResource LabelStyle}"/>
+                <TextBox x:Name="additionalNotes" AcceptsReturn="True" Style="{StaticResource TextBoxStyle}"/>
+            </StackPanel>
+        </ScrollViewer>
+
+        <!-- Przyciski -->
+        <StackPanel Grid.Row="2" Orientation="Horizontal"
+                    HorizontalAlignment="Right" Margin="20">
+            <Button Content="{x:Static resx:GlobalResources.CancelButton}" Margin="0,0,10,0" Style="{StaticResource ButtonStyle}"/>
+            <Button Content="{x:Static resx:GlobalResources.SaveButton}" Style="{StaticResource ButtonStyle}"/>
+        </StackPanel>
+    </Grid>
+</UserControl>

@@ -1,0 +1,139 @@
+﻿<UserControl x:Class="Firma.Views.UserPanelView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:vm="clr-namespace:Firma.ViewModels"
+             xmlns:local="clr-namespace:Firma.Views"
+             xmlns:resx="clr-namespace:Firma.ViewResources"
+             mc:Ignorable="d"
+             d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="UserPanelViewResources.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+
+            <Style x:Key="DataGridTextColumnStyle" TargetType="DataGridCell">
+                <Setter Property="TextBlock.TextAlignment" Value="Center"/>
+                <Setter Property="TextBlock.FontWeight" Value="Bold"/>
+                <Setter Property="TextBlock.Foreground" Value="Blue"/>
+            </Style>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <d:UserControl.DataContext>
+        <vm:UserPanelViewModel/>
+    </d:UserControl.DataContext>
+
+    <ScrollViewer>
+        <Grid Background="yellow">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <GroupBox Header="{x:Static resx:GlobalResources.UserInfo}" Grid.Row="0" Style="{StaticResource GroupBoxStyle}">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="120"/>
+                        <ColumnDefinition Width="200"/>
+                        <ColumnDefinition Width="120"/>
+                        <ColumnDefinition Width="200"/>
+                        <ColumnDefinition Width="120"/>
+                        <ColumnDefinition Width="200"/>
+                        <ColumnDefinition Width="120"/>
+                        <ColumnDefinition Width="200"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                    </Grid.RowDefinitions>
+
+                    <Label Content="{x:Static resx:GlobalResources.UserID}" Grid.Column="0" Grid.Row="0" Style="{StaticResource LabelStyle}"/>
+                    <TextBox Grid.Column="1" Grid.Row="0" Style="{StaticResource TextBoxStyle}"/>
+
+                    <Label Content="{x:Static resx:GlobalResources.UserName}" Grid.Column="0" Grid.Row="1" Style="{StaticResource LabelStyle}"/>
+                    <TextBox Grid.Column="1" Grid.Row="1" Style="{StaticResource TextBoxStyle}"/>
+
+                    <Label Content="{x:Static resx:GlobalResources.AccountCreationDate}" Grid.Column="0" Grid.Row="2" Style="{StaticResource LabelStyle}"/>
+                    <DatePicker Grid.Column="1" Grid.Row="2" Style="{StaticResource DatePickerStyle}"/>
+
+                    <Label Content="{x:Static resx:GlobalResources.EMail}" Grid.Column="0" Grid.Row="3" Style="{StaticResource LabelStyle}"/>
+                    <TextBox Grid.Column="1" Grid.Row="3" IsReadOnly="True" Style="{StaticResource TextBoxStyle}"/>
+
+                    <Label Content="{x:Static resx:GlobalResources.NewsletterSubscription}" Grid.Column="0" Grid.Row="4" Style="{StaticResource LabelStyle}"/>
+                    <CheckBox Grid.Column="1" Grid.Row="4" IsThreeState="False"/>
+
+                    <Button Content="{x:Static resx:GlobalResources.ChangePassword}" Grid.Column="0" Grid.Row="5" Style="{StaticResource ButtonStyle}"/>
+                    <Button Content="{x:Static resx:GlobalResources.ChangeEmail}" Grid.Column="1" Grid.Row="5" Style="{StaticResource ButtonStyle}"/>
+
+                    <Label Content="{x:Static resx:GlobalResources.CompanyName}" Grid.Column="2" Grid.Row="0" Style="{StaticResource LabelStyle}"/>
+                    <TextBox Grid.Column="3" Grid.Row="0" Style="{StaticResource TextBoxStyle}"/>
+
+                    <Label Content="{x:Static resx:GlobalResources.Profession}" Grid.Column="2" Grid.Row="1" Style="{StaticResource LabelStyle}"/>
+                    <TextBox Grid.Column="3" Grid.Row="1" Style="{StaticResource TextBoxStyle}"/>
+
+                    <Label Content="{x:Static resx:GlobalResources.Website}" Grid.Column="2" Grid.Row="2" Style="{StaticResource LabelStyle}"/>
+                    <TextBox Grid.Column="3" Grid.Row="2" Style="{StaticResource TextBoxStyle}"/>
+
+                    <Label Content="{x:Static resx:GlobalResources.Permissions}" Grid.Column="4" Grid.Row="0" Style="{StaticResource LabelStyle}"/>
+                    <ComboBox Grid.Column="5" Grid.Row="0" Style="{StaticResource ComboBoxStyle}"/>
+
+                    <Label Content="{x:Static resx:GlobalResources.Country}" Grid.Column="4" Grid.Row="1" Style="{StaticResource LabelStyle}"/>
+                    <TextBox Grid.Column="5" Grid.Row="1" Style="{StaticResource TextBoxStyle}"/>
+
+                    <Label Content="{x:Static resx:GlobalResources.City}" Grid.Column="4" Grid.Row="2" Style="{StaticResource LabelStyle}"/>
+                    <TextBox Grid.Column="5" Grid.Row="2" Style="{StaticResource TextBoxStyle}"/>
+
+                    <Label Content="{x:Static resx:GlobalResources.DateOfBirth}" Grid.Column="4" Grid.Row="3" Style="{StaticResource LabelStyle}"/>
+                    <DatePicker Grid.Column="5" Grid.Row="3" Style="{StaticResource DatePickerStyle}"/>
+                </Grid>
+            </GroupBox>
+
+            <GroupBox Header="{x:Static resx:GlobalResources.UserOrders}" Grid.Row="1" Style="{StaticResource GroupBoxStyle}">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <DataGrid Grid.Column="0" Grid.ColumnSpan="3" ItemsSource="{Binding Path=UserOrders}" Style="{StaticResource DataGridStyle}">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="{x:Static resx:GlobalResources.OrderDate}" Binding="{Binding OrderDate}" Width="200" ElementStyle="{StaticResource DataGridTextColumnStyle}" EditingElementStyle="{StaticResource DataGridTextColumnStyle}"/>
+                            <DataGridTextColumn Header="{x:Static resx:GlobalResources.OrderNumber}" Binding="{Binding OrderNumber}" Width="200" ElementStyle="{StaticResource DataGridTextColumnStyle}" EditingElementStyle="{StaticResource DataGridTextColumnStyle}"/>
+                            <DataGridTextColumn Header="{x:Static resx:GlobalResources.OrderDescription}" Binding="{Binding Description}" Width="200" ElementStyle="{StaticResource DataGridTextColumnStyle}" EditingElementStyle="{StaticResource DataGridTextColumnStyle}"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
+            </GroupBox>
+
+            <GroupBox Header="{x:Static resx:GlobalResources.UserActivities}" Grid.Row="2" Style="{StaticResource GroupBoxStyle}">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <DataGrid Grid.Column="0" Grid.ColumnSpan="3" ItemsSource="{Binding Path=UserActivities}" Style="{StaticResource DataGridStyle}">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="{x:Static resx:GlobalResources.ActivityDate}" Binding="{Binding Date}" Width="200" ElementStyle="{StaticResource DataGridTextColumnStyle}" EditingElementStyle="{StaticResource DataGridTextColumnStyle}"/>
+                            <DataGridTextColumn Header="{x:Static resx:GlobalResources.ActivityType}" Binding="{Binding ActivityType}" Width="200" ElementStyle="{StaticResource DataGridTextColumnStyle}" EditingElementStyle="{StaticResource DataGridTextColumnStyle}"/>
+                            <DataGridTextColumn Header="{x:Static resx:GlobalResources.ActivityDescription}" Binding="{Binding Description}" Width="200" ElementStyle="{StaticResource DataGridTextColumnStyle}" EditingElementStyle="{StaticResource DataGridTextColumnStyle}"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
+            </GroupBox>
+        </Grid>
+    </ScrollViewer>
+</UserControl>

@@ -1,0 +1,115 @@
+﻿<UserControl x:Class="Firma.Views.AllInvoicesView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:vm="clr-namespace:Firma.ViewModels"
+             xmlns:local="clr-namespace:Firma.Views"
+             xmlns:resx="clr-namespace:Firma.ViewResources"
+             mc:Ignorable="d"
+             d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="AllInvoicesViewResources.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+            <Style TargetType="Button" BasedOn="{StaticResource ButtonStyle}" />
+            <Style TargetType="TextBox" BasedOn="{StaticResource TextBoxStyle}" />
+            <Style TargetType="ComboBox" BasedOn="{StaticResource ComboBoxStyle}" />
+            <Style TargetType="GroupBox" BasedOn="{StaticResource GroupBoxStyle}" />
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <Grid Style="{StaticResource BackgroundStyle}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Upper Toolbar -->
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <!-- Search and Sort -->
+            <StackPanel Orientation="Horizontal" Grid.Column="0" Margin="10">
+                <TextBlock Text="{x:Static resx:GlobalResources.Search}" VerticalAlignment="Center"/>
+                <TextBox Width="200" Margin="10"/>
+                <TextBlock Text="{x:Static resx:GlobalResources.SortBy}" VerticalAlignment="Center"/>
+                <ComboBox Width="200" Margin="10">
+                    <ComboBoxItem Content="{x:Static resx:GlobalResources.InvoiceNumber}"/>
+                    <ComboBoxItem Content="{x:Static resx:GlobalResources.InvoiceDate}"/>
+                    <ComboBoxItem Content="{x:Static resx:GlobalResources.CustomerName}"/>
+                    <ComboBoxItem Content="{x:Static resx:GlobalResources.TotalAmount}"/>
+                </ComboBox>
+            </StackPanel>
+            <!-- Actions -->
+            <StackPanel Orientation="Horizontal" Grid.Column="1" Margin="10">
+                <Button Content="{x:Static resx:GlobalResources.Refresh}"/>
+                <Button Content="{x:Static resx:GlobalResources.AddInvoice}"/>
+                <Button Content="{x:Static resx:GlobalResources.Print}"/>
+                <Button Content="{x:Static resx:GlobalResources.Export}"/>
+            </StackPanel>
+        </Grid>
+
+        <!-- Invoice List -->
+        <ListView Name="invoiceListView" Grid.Row="1" Margin="10">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="{x:Static resx:GlobalResources.InvoiceNumber}" Width="100"/>
+                    <GridViewColumn Header="{x:Static resx:GlobalResources.InvoiceDate}" Width="100"/>
+                    <GridViewColumn Header="{x:Static resx:GlobalResources.CustomerName}" Width="200"/>
+                    <GridViewColumn Header="{x:Static resx:GlobalResources.TotalAmount}" Width="100"/>
+                    <GridViewColumn Header="{x:Static resx:GlobalResources.Paid}" Width="50"/>
+                    <GridViewColumn Header="{x:Static resx:GlobalResources.Balance}" Width="100"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+
+        <!-- Advanced Filters and Invoice Details -->
+        <Grid Grid.Row="2" Margin="10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- Advanced Filters -->
+            <GroupBox Header="{x:Static resx:GlobalResources.AdvancedFilters}" Grid.Column="0" Margin="5">
+                <StackPanel>
+                    <TextBlock Text="{x:Static resx:GlobalResources.DateRange}"/>
+                    <StackPanel Orientation="Horizontal" Margin="5">
+                        <DatePicker Width="120" Margin="5"/>
+                        <DatePicker Width="120" Margin="5"/>
+                    </StackPanel>
+                    <TextBlock Text="{x:Static resx:GlobalResources.CustomerName}"/>
+                    <ComboBox Margin="5">
+                        <ComboBoxItem Content="{x:Static resx:GlobalResources.Customer1}"/>
+                        <ComboBoxItem Content="{x:Static resx:GlobalResources.Customer2}"/>
+                        <ComboBoxItem Content="{x:Static resx:GlobalResources.Customer3}"/>
+                    </ComboBox>
+                    <TextBlock Text="{x:Static resx:GlobalResources.MinAmount}"/>
+                    <TextBox Margin="5"/>
+                    <TextBlock Text="{x:Static resx:GlobalResources.MaxAmount}"/>
+                    <TextBox Margin="5"/>
+                    <TextBlock Text="{x:Static resx:GlobalResources.Paid}"/>
+                    <CheckBox Margin="5"/>
+                </StackPanel>
+            </GroupBox>
+
+            <!-- Invoice Details -->
+            <GroupBox Header="{x:Static resx:GlobalResources.InvoiceDetails}" Grid.Column="1" Margin="5">
+                <StackPanel>
+                    <TextBlock Text="{x:Static resx:GlobalResources.InvoiceNumber}"/>
+                    <TextBlock Text="{x:Static resx:GlobalResources.InvoiceDate}"/>
+                    <TextBlock Text="{x:Static resx:GlobalResources.CustomerName}"/>
+                    <TextBlock Text="{x:Static resx:GlobalResources.TotalAmount}"/>
+                    <TextBlock Text="{x:Static resx:GlobalResources.Paid}"/>
+                    <TextBlock Text="{x:Static resx:GlobalResources.Balance}"/>
+                </StackPanel>
+            </GroupBox>
+        </Grid>
+    </Grid>
+</UserControl>
+

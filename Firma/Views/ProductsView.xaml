@@ -1,0 +1,155 @@
+﻿<UserControl x:Class="Firma.Views.ProductsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:vm="clr-namespace:Firma.ViewModels"
+             xmlns:local="clr-namespace:Firma.Views"
+             xmlns:resx="clr-namespace:Firma.ViewResources"
+             mc:Ignorable="d">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="ProductsViewResources.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid Style="{StaticResource BackgroundStyle1}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- Side toolbar -->
+        <StackPanel Grid.Column="0" Margin="10">
+            <Button Content="{x:Static resx:GlobalResources.Print}" Style="{StaticResource ButtonStyle}"/>
+            <Button Content="{x:Static resx:GlobalResources.Share}" Style="{StaticResource ButtonStyle}"/>
+            <Button Content="{x:Static resx:GlobalResources.Export}" Style="{StaticResource ButtonStyle}"/>
+        </StackPanel>
+
+        <!-- Control Panel -->
+        <Expander Header="{x:Static resx:GlobalResources.ControlPanel}" IsExpanded="True" Grid.Row="0" Grid.Column="1" Margin="10">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <!-- Search Section -->
+                <GroupBox Header="{x:Static resx:GlobalResources.Search}" Grid.Column="0" Margin="5">
+                    <TextBox Style="{StaticResource TextBoxStyle}"/>
+                </GroupBox>
+
+                <!-- Sort Section -->
+                <GroupBox Header="{x:Static resx:GlobalResources.Sort}" Grid.Column="1" Margin="5">
+                    <StackPanel>
+                        <RadioButton Content="{x:Static resx:GlobalResources.ProductID}" Style="{StaticResource RadioButtonStyle}"/>
+                        <RadioButton Content="{x:Static resx:GlobalResources.Name}" Style="{StaticResource RadioButtonStyle}"/>
+                        <RadioButton Content="{x:Static resx:GlobalResources.Price}" Style="{StaticResource RadioButtonStyle}"/>
+                        <RadioButton Content="{x:Static resx:GlobalResources.Category}" Style="{StaticResource RadioButtonStyle}"/>
+                        <RadioButton Content="{x:Static resx:GlobalResources.Stock}" Style="{StaticResource RadioButtonStyle}"/>
+                    </StackPanel>
+                </GroupBox>
+
+                <!-- Filter Section -->
+                <GroupBox Header="{x:Static resx:GlobalResources.Filter}" Grid.Column="2" Margin="5">
+                    <StackPanel>
+                        <TextBlock Text="{x:Static resx:GlobalResources.PriceRange}" Style="{StaticResource TextBlockStyle}"/>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBox Width="70" Margin="5" Style="{StaticResource TextBoxStyle}"/>
+                            <TextBox Width="70" Margin="5" Style="{StaticResource TextBoxStyle}"/>
+                        </StackPanel>
+                        <!-- Extra filter options -->
+                        <TextBlock Text="{x:Static resx:GlobalResources.Category}" Style="{StaticResource TextBlockStyle}"/>
+                        <ComboBox Style="{StaticResource ComboBoxStyle}">
+                            <ComboBoxItem Content="{x:Static resx:GlobalResources.Category1}"/>
+                            <ComboBoxItem Content="{x:Static resx:GlobalResources.Category2}"/>
+                            <ComboBoxItem Content="{x:Static resx:GlobalResources.Category3}"/>
+                        </ComboBox>
+                        <TextBlock Text="{x:Static resx:GlobalResources.InStock}" Style="{StaticResource TextBlockStyle}"/>
+                        <CheckBox Content="{x:Static resx:GlobalResources.Yes}" Style="{StaticResource CheckBoxStyle}"/>
+                        <TextBlock Text="{x:Static resx:GlobalResources.HasImage}" Style="{StaticResource TextBlockStyle}"/>
+                        <CheckBox Content="{x:Static resx:GlobalResources.Yes}" Style="{StaticResource CheckBoxStyle}"/>
+                    </StackPanel>
+                </GroupBox>
+
+                <!-- Action Section -->
+                <GroupBox Header="{x:Static resx:GlobalResources.Actions}" Grid.Column="3" Margin="5">
+                    <StackPanel>
+                        <Button Content="{x:Static resx:GlobalResources.Refresh}" Style="{StaticResource ButtonStyle}" Margin="5"/>
+                        <Button Content="{x:Static resx:GlobalResources.AddProduct}" Style="{StaticResource ButtonStyle}" Margin="5"/>
+                        <Button Content="{x:Static resx:GlobalResources.Export}" Style="{StaticResource ButtonStyle}" Margin="5"/>
+                        <Button Content="{x:Static resx:GlobalResources.BulkImport}" Style="{StaticResource ButtonStyle}" Margin="5"/>
+                        <Button Content="{x:Static resx:GlobalResources.BulkExport}" Style="{StaticResource ButtonStyle}" Margin="5"/>
+                    </StackPanel>
+                </GroupBox>
+
+                <!-- Settings Section -->
+                <GroupBox Header="{x:Static resx:GlobalResources.Settings}" Grid.Column="4" Margin="5">
+                    <StackPanel>
+                        <Button Content="{x:Static resx:GlobalResources.UserSettings}" Style="{StaticResource ButtonStyle}" Margin="5"/>
+                        <Button Content="{x:Static resx:GlobalResources.ViewSettings}" Style="{StaticResource ButtonStyle}" Margin="5"/>
+                        <Button Content="{x:Static resx:GlobalResources.ProductSettings}" Style="{StaticResource ButtonStyle}" Margin="5"/>
+                        <Button Content="{x:Static resx:GlobalResources.ImportExportSettings}" Style="{StaticResource ButtonStyle}" Margin="5"/>
+                    </StackPanel>
+                </GroupBox>
+            </Grid>
+        </Expander>
+
+        <!-- Product List -->
+        <ListView Name="productListView" Grid.Row="1" Grid.Column="1" Margin="10">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="{x:Static resx:GlobalResources.ProductID}" Width="60"/>
+                    <GridViewColumn Header="{x:Static resx:GlobalResources.Image}" Width="100">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Image Height="50" Width="50"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="{x:Static resx:GlobalResources.Name}" Width="150"/>
+                    <GridViewColumn Header="{x:Static resx:GlobalResources.Description}" Width="230"/>
+                    <GridViewColumn Header="{x:Static resx:GlobalResources.Price}" Width="60"/>
+                    <GridViewColumn Header="{x:Static resx:GlobalResources.Category}" Width="60"/>
+                    <GridViewColumn Header="{x:Static resx:GlobalResources.InStock}" Width="60"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+
+        <!-- Pagination -->
+        <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center" Margin="10">
+            <Button Content="{x:Static resx:GlobalResources.Previous}" Style="{StaticResource ButtonStyle}"/>
+            <TextBlock Text="{x:Static resx:GlobalResources.PageInfo}" VerticalAlignment="Center"/>
+            <Button Content="{x:Static resx:GlobalResources.Next}" Style="{StaticResource ButtonStyle}"/>
+        </StackPanel>
+
+        <!-- Status Bar -->
+        <StatusBar Grid.Row="3" Grid.ColumnSpan="2" Margin="10">
+            <StatusBarItem>
+                <TextBlock Text="{x:Static resx:GlobalResources.SelectedProductDetails}"/>
+            </StatusBarItem>
+            <StatusBarItem>
+                <TextBlock Text="{x:Static resx:GlobalResources.ProductID}"/>
+            </StatusBarItem>
+            <StatusBarItem>
+                <TextBlock Text="{x:Static resx:GlobalResources.ProductName}"/>
+            </StatusBarItem>
+            <StatusBarItem>
+                <TextBlock Text="{x:Static resx:GlobalResources.Price}"/>
+            </StatusBarItem>
+        </StatusBar>
+    </Grid>
+</UserControl>
+
+
+
+

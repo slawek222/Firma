@@ -1,0 +1,191 @@
+﻿<Window
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:local="clr-namespace:Firma"
+    xmlns:resx="clr-namespace:Firma.ViewResources"
+    xmlns:ViewModels="clr-namespace:Firma.ViewModels" x:Class="Firma.MainWindow"
+    mc:Ignorable="d"
+    Title="Firma" Height="450" Width="800"
+    WindowState="Maximized">
+
+    <Window.Resources>
+        <ResourceDictionary Source="MainWindowResources.xaml"/>
+    </Window.Resources>
+
+    <Window.Triggers>
+        <EventTrigger RoutedEvent="Window.Loaded">
+            <BeginStoryboard>
+                <Storyboard>
+                    <ColorAnimation Storyboard.TargetName="AnimatedBackground" 
+                                    Storyboard.TargetProperty="Color" 
+                                    From="White" To="LightBlue" Duration="0:0:2" 
+                                    AutoReverse="True" RepeatBehavior="Forever" />
+                </Storyboard>
+            </BeginStoryboard>
+        </EventTrigger>
+    </Window.Triggers>
+
+    <Grid x:Name="grid">
+        <Grid.Background>
+            <SolidColorBrush x:Name="AnimatedBackground" Color="White"/>
+        </Grid.Background>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="30"/>
+        </Grid.RowDefinitions>
+
+        <d:Window.DataContext>
+            <ViewModels:MainWindowViewModel/>
+        </d:Window.DataContext>
+
+        <Menu Grid.Row="0" Grid.Column="0" Margin="3">
+            <MenuItem Header="_File" Width="56">
+                <MenuItem.Icon>
+                    <Image Source="Content/Icons/file.png"/>
+                </MenuItem.Icon>
+                <MenuItem Header="_Save" InputGestureText="Ctrl+S"/>
+                <MenuItem Header="_Delete" InputGestureText="Ctrl+D"/>
+                <MenuItem Header="_Edit" InputGestureText="Ctrl+E"/>
+            </MenuItem>
+            <MenuItem Header="Products" RenderTransformOrigin="0.661,0.444" Width="80">
+                <MenuItem.Icon>
+                    <Image Source="Content/Icons/gift.png"/>
+                </MenuItem.Icon>
+                <MenuItem Header="All" Command="{Binding ProductsCommand}"/>
+                <MenuItem Header="New" Command="{Binding NewProductCommand}"/>
+            </MenuItem>
+            <MenuItem Header="_Warehouse" Width="93">
+                <MenuItem.Icon>
+                    <Image Source="Content/Icons/warehouse.png"/>
+                </MenuItem.Icon>
+                <MenuItem Header="Items">
+                    <MenuItem.Icon>
+                        <Image Source="Content/Icons/gift.png"/>
+                    </MenuItem.Icon>
+                    <MenuItem Header="All" InputGestureText="Ctrl+A"/>
+                    <MenuItem Header="New" InputGestureText="Ctrl+N"/>
+                </MenuItem>
+                <MenuItem Header="Internal (PZ)"/>
+                <MenuItem Header="External (WZ)"/>
+            </MenuItem>
+            <MenuItem Header="_Bookkeeping" Width="104">
+                <MenuItem.Icon>
+                    <Image Source="Content/Icons/tax.png"/>
+                </MenuItem.Icon>
+                <MenuItem Header="_Invoices">
+                    <MenuItem.Icon>
+                        <Image Source="Content/Icons/tax.png"/>
+                    </MenuItem.Icon>
+                    <MenuItem Header="All" Command="{Binding InvoicesCommand}" InputGestureText="Ctrl+B"/>
+                    <MenuItem Header="New" Command="{Binding NewInvoiceCommand}" InputGestureText="Ctrl+V"/>
+                </MenuItem>
+            </MenuItem>
+            <MenuItem Header="O Autorze" Width="90">
+                <MenuItem.Icon>
+                    <Image Source="Content/Icons/copyright.png"/>
+                </MenuItem.Icon>
+                <MenuItem Header="_Krzysztof Pluciński">
+                </MenuItem>
+            </MenuItem>
+            <MenuItem Header="App" Width="92">
+            <MenuItem.Icon>
+                <Image Source="Content/Icons/app.png"/>
+            </MenuItem.Icon>
+            </MenuItem>
+        </Menu>
+
+        <ToolBar Grid.Row="1" Grid.Column="0" Style="{StaticResource MainToolBarStyle}">
+            <ToggleButton Width="32" Height="32" Margin="2" Command="{Binding UserProfileCommand}">
+                <ToggleButton.Background>
+                    <ImageBrush ImageSource="Content\Icons\user.png"/>
+                </ToggleButton.Background>
+            </ToggleButton>
+
+            <ToggleButton Width="32" Height="32" Margin="2"  Command="{Binding ProductsCommand}">
+                <ToggleButton.Background>
+                    <ImageBrush ImageSource="Content\Icons\shopping-basket.png"/>
+                </ToggleButton.Background>
+            </ToggleButton>
+            <Separator/>
+            <ToggleButton Width="32" Height="32" Margin="2"  Command="{Binding InvoicesCommand}">
+                <ToggleButton.Background>
+                    <ImageBrush ImageSource="Content\Icons\shopping-list.png"/>
+                </ToggleButton.Background>
+            </ToggleButton>
+            <ToggleButton Width="32" Height="32" Margin="2"  Command="{Binding NewInvoiceCommand}">
+                <ToggleButton.Background>
+                    <ImageBrush ImageSource="Content\Icons\addInvoice.png"/>
+                </ToggleButton.Background>
+            </ToggleButton>
+            <Separator/>
+            <ToggleButton Width="32" Height="32" Margin="2"  Command="{Binding NewProductCommand}">
+                <ToggleButton.Background>
+                    <ImageBrush ImageSource="Content\Icons\add.png"/>
+                </ToggleButton.Background>
+            </ToggleButton>
+
+            <ToggleButton Width="32" Height="32" Margin="2"  Command="{Binding NewCustomerCommand}">
+                <ToggleButton.Background>
+                    <ImageBrush ImageSource="Content\Icons\customerslist.png"/>
+                </ToggleButton.Background>
+            </ToggleButton>
+            <ToggleButton Width="32" Height="32" Margin="2">
+                <ToggleButton.Triggers>
+                    <EventTrigger RoutedEvent="ToggleButton.Loaded">
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <DoubleAnimation Storyboard.TargetProperty="Opacity"
+                                     From="1.0" To="0.0"
+                                     Duration="0:0:1"
+                                     AutoReverse="True" RepeatBehavior="Forever" />
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger>
+                </ToggleButton.Triggers>
+                <ToggleButton.Background>
+                    <ImageBrush ImageSource="Content\Icons\envelope.png"/>
+                </ToggleButton.Background>
+            </ToggleButton>
+        </ToolBar>
+        <Grid Grid.Row="2" Style="{StaticResource MainGridStyle}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="150"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Border Grid.Column="0">
+                <HeaderedContentControl
+                    Header="Commands"
+                    Content="{Binding Commands}"
+                    ContentTemplate="{StaticResource CommandsTemplate}"
+                    Style="{StaticResource MainHCCStyle}" />
+            </Border>
+            <Border Grid.Column="1">
+                <HeaderedContentControl
+                    Header="Workspace"
+                    Content="{Binding Workspaces}"
+                    ContentTemplate="{StaticResource WorkspacesTemplate}"
+                    Style="{StaticResource MainHCCStyle}" />
+            </Border>
+        </Grid>
+
+        <StatusBar Grid.Row="3">
+            <StatusBarItem>
+                <TextBlock>
+                    <Run Text="WPF-APP"/>
+                </TextBlock>
+            </StatusBarItem>
+            <StatusBarItem HorizontalAlignment="Right">
+                <TextBlock>
+                    <Run Text=""/>
+                </TextBlock>
+            </StatusBarItem>
+        </StatusBar>
+
+    </Grid>
+</Window>
+
